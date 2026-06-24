@@ -3,12 +3,26 @@ import jwt from 'jsonwebtoken'
 import {config} from '../config/config.js'
 
 
-async function generateToken(user){
+async function generateToken(user,res,message){
     const token = jwt.sign(
         {id:user._id,email:user.email,userName:user.fullName,role:user.role}
         ,config.JWT_SECRET,
-        {expiresIn:'1d'})
-    return token;
+        {expiresIn:'7d'})
+
+        res.cookie('token',token)
+        res.status(200).json({
+            message,
+            success:true,
+            user:{
+                id:user._id,
+                email:user.email,
+                fullName:user.fullName,
+                contact:user.contact,
+                role:user.role,
+                token
+            }
+        })
+    
 }
 
 export const registerUser = async (req,res)=>{
@@ -31,11 +45,14 @@ export const registerUser = async (req,res)=>{
             fullName
         })
 
-        const token = await generateToken(user);
-
+        const token = await generateToken(user,res,"User registered successfully");
 
     }catch(err){
         console.log(err)
         res.status(500).json({message:"Server error"})
     }
+}
+
+export const loginUser = async (req,res)=>{
+    
 }
