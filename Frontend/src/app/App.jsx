@@ -1,12 +1,12 @@
 import './App.css'
+import {RouterProvider} from 'react-router'
+import {routes} from './app.routes'
 
 const App = () => {
   return (
       <>
-
-    <h1 className='text-3xl font-bold  bg-gray-700 text-white underline'>
-      snithc
-    </h1>
+      <RouterProvider router={routes}/>
+   
     </>
   )
 }

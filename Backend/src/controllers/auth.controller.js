@@ -26,7 +26,7 @@ async function generateToken(user,res,message){
 }
 
 export const registerUser = async (req,res)=>{
-    const {email,password,contact,fullName} = req.body;
+    const {email,password,contact,fullName,isSeller} = req.body;
     try{
         const existingUser = await userModel.findOne({
             $or:[
@@ -42,7 +42,8 @@ export const registerUser = async (req,res)=>{
             email,
             password,
             contact,
-            fullName
+            fullName,
+            role: isSeller ? 'seller' : 'buyer'
         })
 
         const token = await generateToken(user,res,"User registered successfully");
@@ -54,5 +55,21 @@ export const registerUser = async (req,res)=>{
 }
 
 export const loginUser = async (req,res)=>{
-    
+    const {email,password} = req.body;
+    try{
+        const user = await userModel.findOne({email});
+        if(!user){
+            return res.status(400).json({message:"User not found"})
+        }
+        const isMatch = await user.comparePassword(password);
+
+        if(!isMatch){
+            return res.status(400).json({message:"Invalid credentials"})
+        }
+        await generateToken(user,res,"User logged in successfully");
+      
+    }catch(err){
+        console.log(err)
+        res.status(500).json({message:"Server error"})
+    }
 }

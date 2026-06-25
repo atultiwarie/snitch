@@ -5,7 +5,7 @@ import { validateRegisterUser } from "../validator/auth.validator.js";
 
 router.post('/register', validateRegisterUser, registerUser);
 
-// router.post('/login', loginUser);
+router.post('/login', loginUser);
 
 
 export default router;
