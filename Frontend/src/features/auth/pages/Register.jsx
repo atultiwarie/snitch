@@ -4,16 +4,16 @@ import { useNavigate } from "react-router";
 // import ContinueWithGoogle from "../components/ContinueWithGoogle";
 
 const Register = () => {
-    const {handleRegister} = useAuth()
-    const navigate = useNavigate();
+  const { handleRegister } = useAuth();
+  const navigate = useNavigate();
 
-    const[formData,setFormData]=useState({
-        fullName:"",
-        contactNumber:"",
-        email:"",
-        password:"",
-        isSeller:false
-    })
+  const [formData, setFormData] = useState({
+    fullName: "",
+    contactNumber: "",
+    email: "",
+    password: "",
+    isSeller: false,
+  });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -23,21 +23,21 @@ const Register = () => {
     }));
   };
 
-  const handleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    await hadleRegister({
-        email:formData.email,
-        password:formData.password,
-        contact:formData.contactNumber,
-        fullName:formData.fullName,
-        isSeller:formData.isSeller
-    })
-    navigate("/login")
-  }
+    await handleRegister({
+      email: formData.email,
+      password: formData.password,
+      contact: formData.contactNumber,
+      fullName: formData.fullName,
+      isSeller: formData.isSeller,
+    });
+    navigate("/login");
+  };
 
   const inputStyle = {
-    color: "#1b1c1a",
-    borderBottom: "1px solid #d0c5b5",
+    color: "rgba(255,255,255,0.85)",
+    borderBottom: "1px solid rgba(255,255,255,0.15)",
     fontFamily: "'Inter', sans-serif",
   };
 
@@ -45,7 +45,7 @@ const Register = () => {
     e.target.style.borderBottomColor = "#C9A96E";
   };
   const handleBlur = (e) => {
-    e.target.style.borderBottomColor = "#d0c5b5";
+    e.target.style.borderBottomColor = "rgba(255,255,255,0.15)";
   };
 
   return (
@@ -57,9 +57,9 @@ const Register = () => {
       />
 
       <div
-        className="min-h-screen flex flex-col lg:flex-row selection:bg-[#C9A96E]/30"
+        className="h-screen flex flex-col lg:flex-row overflow-hidden selection:bg-[#C9A96E]/30"
         style={{
-          backgroundColor: "#fbf9f6",
+          backgroundColor: "#1a1917",
           fontFamily: "'Inter', sans-serif",
         }}
       >
@@ -113,12 +113,12 @@ const Register = () => {
 
         {/* ── RIGHT: Form Panel ── */}
         <div
-          className="w-full lg:w-1/2 flex items-center justify-center min-h-screen px-8 sm:px-14 lg:px-20 py-16 overflow-y-auto"
-          style={{ backgroundColor: "#fbf9f6" }}
+          className="w-full lg:w-1/2 flex items-center justify-center h-full px-8 sm:px-14 lg:px-20 py-8"
+          style={{ backgroundColor: "#1a1917" }}
         >
           <div className="w-full max-w-sm">
             {/* Mobile brand mark */}
-            <div className="lg:hidden mb-14">
+            <div className="lg:hidden mb-6">
               <span
                 className="text-sm tracking-[0.35em] uppercase"
                 style={{
@@ -131,7 +131,7 @@ const Register = () => {
             </div>
 
             {/* Header */}
-            <div className="mb-12">
+            <div className="mb-6">
               <p
                 className="text-[10px] uppercase tracking-[0.22em] mb-4 font-medium"
                 style={{ color: "#C9A96E" }}
@@ -142,7 +142,7 @@ const Register = () => {
                 className="text-[2.6rem] xl:text-5xl font-light leading-[1.1]"
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
-                  color: "#1b1c1a",
+                  color: "#ffffff",
                 }}
               >
                 Elevate Your Style
@@ -150,13 +150,13 @@ const Register = () => {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="flex flex-col gap-9">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               {/* Full Name */}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="reg-fullName"
                   className="text-[10px] uppercase tracking-[0.18em] font-medium"
-                  style={{ color: "#7A6E63" }}
+                  style={{ color: "rgba(255,255,255,0.45)" }}
                 >
                   Full Name
                 </label>
@@ -180,7 +180,7 @@ const Register = () => {
                 <label
                   htmlFor="reg-contact"
                   className="text-[10px] uppercase tracking-[0.18em] font-medium"
-                  style={{ color: "#7A6E63" }}
+                  style={{ color: "rgba(255,255,255,0.45)" }}
                 >
                   Contact Number
                 </label>
@@ -204,7 +204,7 @@ const Register = () => {
                 <label
                   htmlFor="reg-email"
                   className="text-[10px] uppercase tracking-[0.18em] font-medium"
-                  style={{ color: "#7A6E63" }}
+                  style={{ color: "rgba(255,255,255,0.45)" }}
                 >
                   Email Address
                 </label>
@@ -228,7 +228,7 @@ const Register = () => {
                 <label
                   htmlFor="reg-password"
                   className="text-[10px] uppercase tracking-[0.18em] font-medium"
-                  style={{ color: "#7A6E63" }}
+                  style={{ color: "rgba(255,255,255,0.45)" }}
                 >
                   Password
                 </label>
@@ -252,7 +252,7 @@ const Register = () => {
                 htmlFor="reg-isSeller"
                 className="flex items-center gap-4 cursor-pointer group"
               >
-                <div className="relative flex-shrink-0">
+                <div className="relative shrink-0">
                   <input
                     id="reg-isSeller"
                     type="checkbox"
@@ -263,12 +263,10 @@ const Register = () => {
                   />
                   {/* Custom checkbox */}
                   <div
-                    className="w-4 h-4 border transition-all duration-200 flex items-center justify-center peer-checked:border-[#C9A96E]"
+                    className="w-4 h-4 border transition-all duration-200 flex items-center justify-center"
                     style={{
-                      borderColor: formData.isSeller ? "#C9A96E" : "#d0c5b5",
-                      backgroundColor: formData.isSeller
-                        ? "#C9A96E"
-                        : "transparent",
+                      borderColor: formData.isSeller ? "#C9A96E" : "rgba(255,255,255,0.25)",
+                      backgroundColor: formData.isSeller ? "#C9A96E" : "transparent",
                     }}
                   >
                     {formData.isSeller && (
@@ -290,7 +288,7 @@ const Register = () => {
                 </div>
                 <span
                   className="text-[11px] uppercase tracking-[0.15em] transition-colors duration-200"
-                  style={{ color: formData.isSeller ? "#C9A96E" : "#7A6E63" }}
+                  style={{ color: formData.isSeller ? "#C9A96E" : "rgba(255,255,255,0.45)" }}
                 >
                   Register as Seller
                 </span>
@@ -301,17 +299,17 @@ const Register = () => {
                 type="submit"
                 className="w-full py-4 text-[11px] uppercase tracking-[0.25em] font-medium transition-all duration-300 mt-2"
                 style={{
-                  backgroundColor: "#1b1c1a",
-                  color: "#fbf9f6",
+                  backgroundColor: "#C9A96E",
+                  color: "#1a1917",
                   fontFamily: "'Inter', sans-serif",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "#C9A96E";
-                  e.currentTarget.style.color = "#1b1c1a";
+                  e.currentTarget.style.backgroundColor = "#ffffff";
+                  e.currentTarget.style.color = "#1a1917";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "#1b1c1a";
-                  e.currentTarget.style.color = "#fbf9f6";
+                  e.currentTarget.style.backgroundColor = "#C9A96E";
+                  e.currentTarget.style.color = "#1a1917";
                 }}
               >
                 Sign Up
@@ -321,17 +319,17 @@ const Register = () => {
               <div className="flex items-center gap-4">
                 <div
                   className="flex-1 h-px"
-                  style={{ backgroundColor: "#e4e2df" }}
+                  style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
                 />
                 <span
                   className="text-[10px] uppercase tracking-[0.15em]"
-                  style={{ color: "#B5ADA3" }}
+                  style={{ color: "rgba(255,255,255,0.3)" }}
                 >
                   or
                 </span>
                 <div
                   className="flex-1 h-px"
-                  style={{ backgroundColor: "#e4e2df" }}
+                  style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
                 />
               </div>
 
@@ -341,19 +339,19 @@ const Register = () => {
               {/* Footer Link */}
               <p
                 className="text-center text-[11px]"
-                style={{ color: "#B5ADA3" }}
+                style={{ color: "rgba(255,255,255,0.35)" }}
               >
                 Already have an account?{" "}
                 <a
                   href="/login"
                   className="transition-colors duration-200"
                   style={{
-                    color: "#7A6E63",
+                    color: "rgba(255,255,255,0.65)",
                     textDecoration: "underline",
                     textUnderlineOffset: "3px",
                   }}
                   onMouseEnter={(e) => (e.target.style.color = "#C9A96E")}
-                  onMouseLeave={(e) => (e.target.style.color = "#7A6E63")}
+                  onMouseLeave={(e) => (e.target.style.color = "rgba(255,255,255,0.65)")}
                 >
                   Sign in
                 </a>

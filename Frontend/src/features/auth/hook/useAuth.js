@@ -9,13 +9,27 @@ export const useAuth = ()=>{
         const data = await register({email,contact,password,fullName,isSeller});
         dispatch(setUser(data.user));
         // dispatch(setLoading(false));
+         return data.user;
     }
 
     async function handleLogin({email,password}){
         const data = await login({email,password});
         dispatch(setUser(data.user));
+        return data.user;
     }
 
-    return {handleRegister, handleLogin}
+async function handleGetMe() {
+  try {
+    dispatch(setLoading(true));
+    const data = await getMe();
+    dispatch(setUser(data.user));
+  } catch (err) {
+    console.log(err);
+  } finally {
+    dispatch(setLoading(false));
+  }
+}
+
+return { handleRegister, handleLogin, handleGetMe };
 
 }
